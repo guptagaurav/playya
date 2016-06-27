@@ -18,6 +18,7 @@ function sendMessageToPause(tab, callback) {
                 playPause.push({tabId: tab.id, index: response.result.index, id: divInfoList[i].id, class: divInfoList[i].class});
             }
         }
+        localStorage.setItem("data", JSON.stringify(playPause));
         callback();
     })
 }
@@ -37,11 +38,7 @@ function pauseVid(i, len, tabs) {
 
     tab = tabs[i];
     chrome.tabs.executeScript(tab.id, {file: "jquery.min.js"}, function () {
-        console.log("FirstExec");
-        console.log(tab.id);
         chrome.tabs.executeScript(tab.id, {file: "pause.js"}, function () {
-            console.log("SecondExec");
-            console.log(tab.id);
             sendMessageToPause(tab, function(){
                 pauseVid(i+1, len, tabs);
             });
@@ -72,9 +69,11 @@ chrome.commands.onCommand.addListener(function(command) {
             len = tabs.length;
             if (len) {                               // pause the videos
                 playPause = [];
+                localStorage.clear();
                 console.log(len);
                 pauseVid(0, len, tabs);
             } else {                                 // play the videos
+                playPause = JSON.parse(localStorage.getItem("data"));
                 pauseLen = playPause.length;
                 if (pauseLen) {
                     console.log(playPause);
@@ -83,7 +82,8 @@ chrome.commands.onCommand.addListener(function(command) {
             }
         });
     } else {
-        console.log("History Deleted")
+        console.log("History Deleted");
+        localStorage.clear();
         playPause = [];
     }
     console.log(command);
