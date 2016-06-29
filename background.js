@@ -97,6 +97,5 @@ chrome.browserAction.setPopup({popup: "popup.html"});
 chrome.runtime.onInstalled.addListener(function (details) {
     if (details.reason == "install") { //reason ( enum of "install", "update", or "chrome_update" )
         console.log("Installed");
-        chrome.browserAction.setPopup({popup: "Play/Pause Videos using Hot Keys. Press Ctrl(Command)+Shift+0 to toggle Play, Pause videos. Press Ctrl(Command)+Shift+1 to delete history. Play your video after a 3-4 seconds if you have paused it using this extension."});
     }
 });
