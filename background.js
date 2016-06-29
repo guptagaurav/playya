@@ -72,6 +72,7 @@ chrome.commands.onCommand.addListener(function(command) {
                 localStorage.clear();
                 console.log(len);
                 pauseVid(0, len, tabs);
+                chrome.browserAction.setBadgeText({text: "ON"});
             } else {                                 // play the videos
                 playPause = JSON.parse(localStorage.getItem("data"));
                 pauseLen = playPause.length;
@@ -85,9 +86,12 @@ chrome.commands.onCommand.addListener(function(command) {
         console.log("History Deleted");
         localStorage.clear();
         playPause = [];
+        chrome.browserAction.setBadgeText({text: ""});
     }
     console.log(command);
 });
+
+chrome.browserAction.setPopup({popup: "popup.html"});
 
 // TODO: display a tooltip upon installing the extension
 chrome.runtime.onInstalled.addListener(function (details) {
