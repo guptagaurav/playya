@@ -1,7 +1,7 @@
 {
   "name": "Play Ya!",
   "description": "Press Ctrl(Command)+Shift+0 to toggle video playback, Ctrl(Command)+Shift+1 to delete history. Resume playback after 3-4 seconds.",
-  "version": "1.1",
+  "version": "1.2",
   "manifest_version": 2,
   "permissions": ["tabs", "bookmarks", "activeTab", "*://*/*"],
   "icons": { "16": "icon.png",
